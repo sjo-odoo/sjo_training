@@ -1,0 +1,411 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<odoo>
+     <record id = "route_kanban_view" model = "ir.ui.view" >
+        <field name = "name">Route Data</field>
+        <field name = "model">route.route</field>
+        <field name = "arch" type = "xml">
+            <kanban>
+                <field name = "from_station_id" />
+                <field name = "to_station_id" />
+                <field name = "train_number" />
+                <field name = "distance" />
+                <field name = "fare" />
+                <templates>
+                    <t t-name = "kanban-box">
+                        <div class = "oe_kanban_card">
+                            <a type = "open">
+                                <ul>
+                                    <li><strong><field name = "train_name"/></strong></li>
+                                    <li><field name = "train_number" /></li>
+
+                                    <li><strong><field name = "from_station_id" /></strong></li>
+                                    <li><strong><field name = "to_station_id" /></strong></li>
+                                </ul>
+                            </a>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record  id = "route_tree_view" model = "ir.ui.view">
+        <field name = "name">Route</field>
+        <field name = "model">route.route</field>
+        <field name = "arch" type = "xml">
+            <tree>
+                <field name = "train_name" />
+                <field name = "train_number" />
+                <field name = "from_station_id" />
+                <field name = "to_station_id" />
+                <field name = "arrival_time" />
+                <field name = "departure_time" />
+                <field name = "distance" />
+                <field name = "fare" widget="monetary"  options="{'currency_field': 'EUR'}"/>  
+            </tree>
+        </field>
+    </record>
+
+    <record id = "route_form_view" model = "ir.ui.view" >
+        <field name = "name">Route</field>
+        <field name = "model">route.route</field>
+        <field name = "arch" type = "xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name = "train_name" />
+                        <field name = "train_number" />
+                        <field name = "from_station_id" />
+                        <field name = "to_station_id" />
+                        <field name = "arrival_time" />
+                        <field name = "departure_time" />
+                        <field name = "distance" />
+                        <field name = "fare" widget="monetary"  options="{'currency_field': 'EUR'}"/>
+                    </group>
+                </sheet>
+                 
+            </form>
+        </field>
+    </record>
+
+     <record id = "route_kanban_search_view" model = "ir.ui.view" >
+        <field name = "name">Route Data</field>
+        <field name = "model">route.route</field>
+        <field name = "arch" type = "xml">
+            <search>
+                <field name = "from_station_id" />
+                <field name = "to_station_id" />
+            </search>
+        </field>
+    </record>
+
+    <record id = "route_info" model = "ir.actions.act_window" >
+        <field name = "name">Route Data</field>
+        <field name = "res_model">route.route</field>
+        <field name = "view_type">form</field>
+        <field name = "view_id" ref = "route_kanban_view" />
+        <field name = "view_mode">kanban,form,tree</field>
+        <field name = "search_view_id" ref = "route_kanban_search_view" />
+    </record>
+
+
+
+    <record  id = "train_kanban_view" model = "ir.ui.view" >
+        <field name = "name">Train</field>
+        <field name = "model">train.train</field>
+        <field name = "arch" type = "xml">
+            <kanban>
+                <field name = "name" />
+                <field name = "code" />
+                <templates>
+                    <t t-name = "kanban-box">
+                        <div class = "oe_kanban_card">
+                            <a type = "open">
+                                <ul>
+                                    <li><field name = "code" /></li>
+                                    <li><field name = "name" /></li>
+                                </ul>
+                            </a>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model = "ir.ui.view" id = "train_form_view">
+        <field name = "name">Train</field>
+        <field name = "model">train.train</field>
+        <field name = "arch" type = "xml">
+            <form>
+                <header>
+                    <button class="o_fetch" name = "fetch_details" type = "object" string = "Fetch Details" />
+                </header>
+                <sheet>
+                    <group>
+                        <field name = "code" />  
+                            
+                        <field name = "name" />
+                        <div class="o_fetch"/>
+                    </group>
+
+                    <notebook>
+                        <page string = "Route">
+                            <form string = "Route Info">
+                                <group>
+                                    <field name = "from_station_id"/>
+                                    <field name = "arrival_time" />
+                                    <field name = "departure_time" />
+                                    <field name = "distance" />
+                                    <field name = "fare" />
+                                </group>
+                            </form>
+                        </page>
+                        <page string = "Train Days" >
+                            <form string = "Train Days">
+                                <group>
+                                    <field name = "monday" />
+                                    <field name = "tuesday" />
+                                    <field name = "wednesday" />
+                                    <field name = "thursday" />
+                                    <field name = "friday" />
+                                    <field name = "saturday" />
+                                    <field name = "sunday" />
+                                </group>
+                            </form>
+                        </page>
+                        <page string = "Seats Availability" >
+                            <form string = "Availability">
+                                <group>
+                                    <field name = "c_3A" />
+                                    <field name = "c_Sleeper" />
+                                    <field name = "c_1A" />
+                                    <field name = "c_2S" />
+                                    <field name = "c_FC" />
+                                    <field name = "c_2A" />
+                                    <field name = "c_CC" />
+                                    <field name = "c_3E" />
+                                </group>
+                            </form>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model = "ir.ui.view" id = "train_tree_view">
+        <field name = "name">Train</field>
+        <field name = "model">train.train</field>
+        <field name = "arch" type = "xml">
+            <tree>
+                <field name = "code" />  
+                <field name = "name" />  
+            </tree>
+        </field>
+    </record>
+
+    <record model = "ir.actions.act_window" id = "train_info">
+        <field name = "name">Train Data</field>
+        <field name = "res_model">train.train</field>
+        <field name = "view_type">form</field>
+        <field name = "view_id" ref = "train_kanban_view" />
+        <field name = "view_mode">kanban,form,tree</field>
+    </record>
+
+
+    <record model = "ir.ui.view" id = "train_days_kanban_view">
+        <field name = "name">Train Days</field>
+        <field name = "model">train.days</field>
+        <field name = "arch" type = "xml">
+            <kanban>
+                <field name = "code" />
+                <field name = "monday" />
+                <field name = "tuesday" />
+                <field name = "wednesday" />
+                <field name = "thursday" />
+                <field name = "friday" />
+                <field name = "saturday" />
+                <field name = "sunday" />
+                <templates>
+                    <t t-name = "kanban-box">
+                        <div class = "oe_kanban_card">
+                            <a type = "open">
+                                <ul>
+                                    <li><field name = "train_name" /></li>
+                                    <li><field name = "code" /></li>
+                                </ul>
+                                
+                            </a>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model = "ir.ui.view" id = "train_days_form_view">
+        <field name = "name">Train Days</field>
+        <field name = "model">train.days</field>
+        <field name = "arch" type = "xml">
+            <form>
+                <header>
+                    <button name = "fetch_days" type = "object" string = "Fetch Days" />
+                </header>
+                <sheet>
+                    <group>
+                        <field name = "code" />  
+                        <field name = "monday" />
+                        <field name = "tuesday" />
+                        <field name = "wednesday" />
+                        <field name = "thursday" />
+                        <field name = "friday" />
+                        <field name = "saturday" />
+                        <field name = "sunday" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model = "ir.ui.view" id = "train_days_tree_view">
+        <field name = "name">Train Days</field>
+        <field name = "model">train.days</field>
+        <field name = "arch" type = "xml">
+            <tree>
+                <field name = "code" />  
+                <field name = "monday" />
+                <field name = "tuesday" />
+                <field name = "wednesday" />
+                <field name = "thursday" />
+                <field name = "friday" />
+                <field name = "saturday" />
+                <field name = "sunday" /> 
+            </tree>
+        </field>
+    </record>
+
+    <record model = "ir.actions.act_window" id  =  "train_days_info">
+        <field name = "name">Train Days</field>
+        <field name = "res_model">train.days</field>
+        <field name = "view_type">form</field>
+        <field name = "view_id" ref  =  "train_days_kanban_view" />
+        <field name = "view_mode">kanban,form,tree</field>
+    </record>
+
+
+    <record model = "ir.ui.view" id = "train_class_kanban_view">
+        <field name = "name">Train Class</field>
+        <field name = "model">train.class</field>
+        <field name = "arch" type = "xml">
+            <kanban>
+                <field name = "train_number" />
+                <field name = "c_3A" />
+                <field name = "c_Sleeper" />
+                <field name = "c_1A" />
+                <field name = "c_2S" />
+                <field name = "c_FC" />
+                <field name = "c_2A" />
+                <field name = "c_CC" />
+                <field name = "c_3E" />
+                <templates>
+                    <t t-name = "kanban-box">
+                        <div class = "oe_kanban_card">
+                            <a type = "open">
+                                <ul>
+                                    <li><field name = "train_name" /></li>
+                                    <li><field name = "train_number" /></li>
+                                </ul>
+                            </a>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model = "ir.ui.view" id = "train_class_form_view">
+        <field name = "name">Train Class</field>
+        <field name = "model">train.class</field>
+        <field name = "arch" type = "xml">
+            <form>
+                <header>
+                   
+                </header>
+                <sheet>
+                    <group>
+                        <field name = "train_number" />
+                        <field name = "c_3A" />
+                        <field name = "c_Sleeper" />
+                        <field name = "c_1A" />
+                        <field name = "c_2S" />
+                        <field name = "c_FC" />
+                        <field name = "c_2A" />
+                        <field name = "c_CC" />
+                        <field name = "c_3E" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model = "ir.ui.view" id = "train_class_tree_view">
+        <field name = "name">Train Class</field>
+        <field name = "model">train.class</field>
+        <field name = "arch" type = "xml">
+            <tree>
+                <field name = "train_number" />
+                <field name = "c_3A" />
+                <field name = "c_Sleeper" />
+                <field name = "c_1A" />
+                <field name = "c_2S" />
+                <field name = "c_FC" />
+                <field name = "c_2A" />
+                <field name = "c_CC" />
+                <field name = "c_3E" />
+            </tree>
+        </field>
+    </record>
+
+    <record model = "ir.actions.act_window" id  =  "train_class_info">
+        <field name = "name">Train Class Availability</field>
+        <field name = "res_model">train.class</field>
+        <field name = "view_type">form</field>
+        <field name = "view_id" ref  =  "train_class_kanban_view" />
+        <field name = "view_mode">kanban,form,tree</field>
+    </record>
+
+
+
+    <record model = "ir.ui.view" id = "station_kanban_view">
+        <field name = "name">Station</field>
+        <field name = "model">station.station</field>
+        <field name = "arch" type = "xml">
+            <kanban>
+                <field name = "name" />
+                <field name = "code" />
+                <templates>
+                    <t t-name = "kanban-box">
+                        <div class = "oe_kanban_card">
+                            <a type = "open">
+                                <ul>
+                                    <li><field name = "name" /></li>
+                                    <li><field name = "code" /></li>
+                                </ul>
+                            </a>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model = "ir.ui.view" id = "station_tree_view">
+        <field name = "name">Station</field>
+        <field name = "model">station.station</field>
+        <field name = "arch" type = "xml">
+            <tree>
+                <field name = "name" />
+                <field name = "code" />   
+            </tree>
+        </field>
+    </record>
+
+    <record model = "ir.actions.act_window" id = "station_info">
+        <field name = "name">Station Data</field>
+        <field name = "res_model">station.station</field>
+        <field name = "view_type">form</field>
+        <field name = "view_id" ref = "station_kanban_view" />
+        <field name = "view_mode">kanban,form,tree</field>
+    </record>
+
+<menuitem id = "main_main_menu" name = "Train Enquiry" />
+    <menuitem id = "main_menu" name = "Trains" parent = "main_main_menu" /> 
+        <menuitem id = "train_menu" name = "Train Info" parent = "main_menu" action = "train_info" />
+        <menuitem id = "train_days_menu" name = "Train Days" parent = "main_menu" action = "train_days_info" />
+        <menuitem id = "train_class_menu" name = "Train Class" parent = "main_menu" action = "train_class_info" />
+    <menuitem id = "route_menu" name = "Route Info" parent = "main_main_menu"  />
+        <menuitem id = "route_sub_menu" name = "Route Info" parent = "route_menu" action = "route_info" />
+       
+
+</odoo>

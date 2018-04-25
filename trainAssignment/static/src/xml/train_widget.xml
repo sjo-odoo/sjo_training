@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">   
+    <div t-name="testsss">
+        <span class="val"><t t-esc="widget.count"/></span>
+        <button>Increment</button>
+    </div>    
+</templates>

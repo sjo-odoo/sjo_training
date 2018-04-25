@@ -1,0 +1,72 @@
+<odoo>
+    <template id = "hello_world" name = "Hello Template">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class = "container">
+                    <h1>Hello World !</h1>
+                    <t t-foreach="result" t-as="temp">
+                        <p>
+                            <t t-esc="temp.from_station_id"/> 
+                            <t t-esc="temp.to_station_id"/>
+                            <t t-esc="temp.arrival_time"/> 
+                            <t t-esc="temp.departure_time"/>
+                            <t t-esc="temp.distance"/> 
+                            <t t-esc="temp.fare"/>
+                        </p>
+                    </t>
+                </div>
+            </div>
+        </t>    
+    </template>
+
+
+    <template id = "enquiry_page" name = "Enquiry page">
+        <t t-call = "website.layout">
+            <div class = "container">
+                <form  class = "container-fluid  form-horizontal" action = "/result" data-model_name = "route.route" data-success_page = "/result">
+                    <div class = "from-group">
+                        <label for = "source_station">Source Station</label>
+                        <input type = "text" class = "form-control" id = "source_station" name = "source_station_name" />
+                        <br />
+                        <label for = "source_station">Destiation Station</label>
+                        <input type = "text" class = "form-control" id = "destination_station" name = "to_station_name" />
+                        <br />
+                        <button type = "submit" class = "btn btn-success">Submit</button>
+                    </div>
+                    <h2> Hello World !!</h2>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id = "result_page" name = "Result page">
+        <t t-call = "website.layout">
+            <div class = "container">
+                <div class = "jumbotron">
+                    <table class="table">
+                        <thead>
+                            <th>Source Station</th>
+                            <th>Destination Station</th>
+                            <th>Arrival Time</th>
+                            <th>Departure Time</th>
+                            <th>Distance</th>
+                            <th>Fare</th>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="result" t-as="temp">
+                                <tr>
+                                    <td><t t-esc="temp.from_station_id"/></td>
+                                    <td><t t-esc="temp.to_station_id"/></td>
+                                    <td><t t-esc="temp.arrival_time"/> </td>
+                                    <td><t t-esc="temp.departure_time"/></td>
+                                    <td><t t-esc="temp.distance"/> </td>
+                                    <td><t t-esc="temp.fare"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
